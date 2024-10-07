@@ -67,6 +67,22 @@ struct Node* addPolynomials(struct Node* poly1, struct Node* poly2) {
         poly2 = poly2->next;
     }
 
+    struct Node* ptr1 = result;
+    while (ptr1 != NULL && ptr1->next != NULL) {
+        struct Node* ptr2 = ptr1;
+        while (ptr2->next != NULL) {
+            if (ptr1->pow == ptr2->next->pow) {
+                ptr1->coeff += ptr2->next->coeff;
+                struct Node* temp = ptr2->next;
+                ptr2->next = ptr2->next->next;
+                free(temp);
+            } else {
+                ptr2 = ptr2->next;
+            }
+        }
+        ptr1 = ptr1->next;
+    }
+
     return result;
 }
 
